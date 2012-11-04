@@ -1,0 +1,36 @@
+<%= form_for(@rapid) do |f| %>
+		<% if @rapid.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@rapid.errors.count, "error") %> prohibited this rapid from being saved:</h2>
+
+			<ul>
+			<% @rapid.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.label :rating %>
+	<%= f.number_field :rating %>
+
+	<%= f.label :river %>
+	<%= collection_select(:rapid, :river, River.all, :id, :name) %>
+	
+	<%= render :partial => "shared/pickermap", :locals => { :item_type => @rapid } %>
+
+	<%= f.label :description %>
+	<%= f.text_area :description, :rows => 5 %>
+	
+	<%= f.hidden_field :user_changed, :value => @user.username %>
+	<% unless @rapid.user_created %>
+	<%= f.hidden_field :user_created, :value => @user.username %>
+	<% end %>
+
+	<br>
+	<%= f.submit class: "btn btn-primary" %>
+
+<% end %>

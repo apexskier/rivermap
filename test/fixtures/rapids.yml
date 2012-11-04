@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  class: 1
+  river: 1
+  lat: 9.99
+  lng: 9.99
+  description: MyText
+  user_created: MyText
+  user_changed: MyText
+
+two:
+  name: MyString
+  class: 1
+  river: 1
+  lat: 9.99
+  lng: 9.99
+  description: MyText
+  user_created: MyText
+  user_changed: MyText

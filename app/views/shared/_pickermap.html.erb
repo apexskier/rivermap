@@ -1,0 +1,16 @@
+<%
+	item_type_string = item_type.class.to_s.downcase
+ %>
+
+	<div class="clearfix pickermap">
+		<label>Position</label>
+		<div class="pull-left">
+			<div id="pickermap"></div>
+		</div>
+		
+		<label for="<%= item_type_string %>_lat">Latitude</label>
+		<input id="<%= item_type_string %>_lat" max="90" min="-90" name="<%= item_type_string %>[lat]" step="0.0000000001" type="number" value="<%= item_type.lat %>" class="lat_input" />
+	
+		<label for="<%= item_type_string %>_lng">Longitude</label>
+		<input id="<%= item_type_string %>_lng" max="180" min="-180" name="<%= item_type_string %>[lng]" step="0.0000000001" type="number" value="<%= item_type.lng %>" class="lng_input" />
+	</div>

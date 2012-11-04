@@ -1,0 +1,32 @@
+<%= form_for(@gauge) do |f| %>
+
+<fieldset>
+	<% if @gauge.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@gauge.errors.count, "error") %> prohibited this gauge from being saved:</h2>
+
+			<ul>
+			<% @gauge.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+		<%= f.label :code %>
+		<%= f.text_field :code %>
+	
+		<%= f.label :units %>
+		<%= select_tag(:units, options_for_select([['cfs', 1], ['feet', 2]])) %>
+	
+		<%= f.label :type %>
+		<%= select_tag(:type, options_for_select([['USGS', 1], ['Washington State DOE', 2]])) %>
+	
+		<%= f.label :river %>
+		<%= collection_select(:gauge, :river, River.all, :id, :name) %>
+	
+		<%= render :partial => "shared/pickermap", :locals => { :item_type => @gauge } %>
+		
+		<br>
+		<%= f.submit class: "btn btn-primary" %>
+<% end %>

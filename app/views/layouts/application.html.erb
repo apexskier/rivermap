@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>		<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>		<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+
+	<!-- Use the .htaccess and remove these lines to avoid edge case issues.
+		 More info: h5bp.com/i/378 -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Rivermap</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<%= stylesheet_link_tag	"application", :media => "all" %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+		 chromium.org/developers/how-tos/chrome-frame-getting-started -->
+	<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+	
+	
+	<div class="container">
+		<header class="navbar">
+			<div class="navbar-inner">
+				<%= link_to "Home", root_url, class: "brand" %>
+				<ul class="nav">
+					<li class="<%= 'active' if params[:controller] == 'rivers' %>"><%= link_to "Rivers", rivers_path %></li>
+					<li class="<%= 'active' if params[:controller] == 'gauges' %>"><%= link_to "Gauges", gauges_path %></li>
+					<li class="<%= 'active' if params[:controller] == 'rapids' %>"><%= link_to "Rapids", rapids_path %></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li class="divider-vertical"></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">User tools <b class="caret"></b></a>
+						<ul class="dropdown-menu" role="menu">
+							<% if @user %>
+								<li><%= link_to "Add river", new_river_path %></li>
+								<li><%= link_to "Add gauge", new_gauge_path %></li>
+								<li><%= link_to "Add rapid", new_rapid_path %></li>
+								<li class="divider"></li>
+								<li><%= link_to "Edit Account", edit_person_path('account') %></li>
+								<li><%= link_to "Logout", @application_session, :method => :delete %></li>
+							<% else %>
+								<li><%= link_to "Login", new_session_path %></li>
+								<li><%= link_to "Register", new_person_path %></li>
+							<% end %>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</header>
+	
+		<% unless @user %>
+			<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				Colors indicate if a river is running, zoom in to see more.
+			</div>
+		<% end %>
+		
+		<% if flash[:notice] %>
+			<div class="alert">
+				<button type="button" class="close" data-dismiss="alert">x</button>
+				<b>Message: </b><%= "#{flash[:notice]}" %>
+			</div>
+		<% end %>
+	
+		<div class="row">
+			<div class="span12">
+				<%= yield %>
+			</div>
+		</div>
+	
+	</div>
+	
+	<% if current_page?('/') %>
+		<div id="map_canvas"></div>
+	<% end %>
+	
+	<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=true" %>
+	<%= javascript_include_tag "application" %>
+
+</body>
+</html>

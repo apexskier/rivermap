@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @rapid.name %></h2>
+
+<p>Class <%= @rapid.rating %> | <%= River.find(@rapid.river).name %></p>
+
+<p>
+  <b>Lat:</b>
+  <%= @rapid.lat %><br>
+  <b>Lng:</b>
+  <%= @rapid.lng %>
+</p>
+
+<% if @rapid.description %>
+<p><%= @rapid.description %></p>
+<% end %>
+
+<p>Created by <%= @rapid.user_created %> on <%= @rapid.created_at.strftime('%b %-d, %Y at %l:%M %P') %><% if @rapid.created_at != @rapid.updated_at %> and updated <% if @rapid.user_created != @rapid.user_changed %>by <%= @rapid.user_changed %> <% end %>on <%= @rapid.updated_at.strftime('%b %-d, %Y at %l:%M %P') %><% end %>.</p>
+
+<%= link_to 'Edit', edit_rapid_path(@rapid), class: 'btn' %> 
+<%= link_to 'Back', rapids_path, class: 'btn' %>

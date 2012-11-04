@@ -1,0 +1,20 @@
+<h2><%= @river.name %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<p class="meta">created by <%= @river.user %></p>
+
+<p>Created: <%= @river.created_at.strftime("%B %d, %Y at %l:%M %p") %><br>
+Updated: <%= @river.updated_at.strftime("%B %d, %Y at %l:%M %p") %></p>
+
+<h4>Gauges</h4>
+<ul>
+<% Gauge.all.each do |gauge| %>
+	<% if gauge.river == @river.id %>
+		<li><%= gauge.code %> <%= link_to 'Show', gauge %></li>
+	<% end %>
+<% end %>
+</ul>
+
+<%= link_to 'Edit', edit_river_path(@river), class: "btn" %>
+<%= link_to 'Back', rivers_path, class: "btn" %>

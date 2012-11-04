@@ -1,0 +1,22 @@
+<%= form_for(@river) do |f| %>
+	<% if @river.errors.any? %>
+		<div id="error_explanation">
+			<b><%= pluralize(@river.errors.count, "error") %> prohibited this river from being saved:</b>
+
+			<ul>
+			<% @river.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+			</ul>
+		</div>
+	<% end %>
+	
+	<fieldset>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+		
+		<%= f.hidden_field :user, :value => @user.username %>
+		<br>
+		<%= f.submit class: "btn" %>
+	</fieldset>
+<% end %>

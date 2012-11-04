@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @gauge.code %>
+</p>
+
+<p>
+  <b>River:</b>
+  <%= River.find(@gauge.river).name %>
+</p>
+
+<p>Created: <%= @gauge.created_at.strftime("%B %d, %Y at %l:%M %p") %><br>
+Updated: <%= @gauge.updated_at.strftime("%B %d, %Y at %l:%M %p") %></p>
+
+<%= link_to 'Edit', edit_gauge_path(@gauge), class: "btn" %>
+<%= link_to 'Back', gauges_path, class: "btn" %>
